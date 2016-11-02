@@ -1,0 +1,25 @@
+{
+  "name": "",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Almouro <contact@almouro.com> (almouro.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/almouro/hockeyapp-remover"
+  },
+  "dependencies": {
+    "adbkit": "^2.6.1",
+    "download": "^5.0.2",
+    "express": "^4.14.0",
+    "node-fetch": "^1.6.0",
+    "shelljs": "^0.7.5",
+    "yargs": "^5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.8.0",
+    "eslint-config-airbnb-base": "^8.0.0",
+    "eslint-plugin-import": "^1.16.0"
+  }
+}
