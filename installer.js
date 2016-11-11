@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const download = require('download');
-const adb = require('adbkit').createClient();
+const androidClient = require('./android-client');
 const iDeviceInstaller = require('./iDeviceInstaller');
 
 const args = require('yargs')
@@ -59,15 +59,9 @@ const downloadBuild = (buildUrl, appName, isAndroid) => {
   });
 };
 
-const installApkOnDevices = apkPath =>
-  adb.listDevices().then(devices => Promise.all(devices.map((device) => {
-    console.log(`Installing ${apkPath} on ${device.id}`);
-    return adb.install(device.id, apkPath);
-  })));
-
 const getMyAndroidApp = (buildUrl, appName) =>
   downloadBuild(buildUrl, appName, true)
-  .then(apkPath => installApkOnDevices(apkPath));
+  .then(apkPath => androidClient.installAppOnDevices(apkPath));
 
 
 const getMyIosApp = (buildUrl, appName) =>
