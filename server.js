@@ -1,6 +1,7 @@
 const express = require('express');
 const installer = require('./installer');
 const androidClient = require('./android-client');
+const iosClient = require('./ios-client');
 
 const app = express();
 
@@ -10,8 +11,13 @@ app.get('/install/:hockeyAppId', (req, res) =>
 );
 
 app.get('/devices', (req, res) =>
-  androidClient.getDevices()
-  .then(devices => res.json(devices))
+  Promise.all([
+    androidClient.getDevices(),
+    iosClient.getDevices(),
+  ]).then(devices => res.json({
+    android: devices[0],
+    iOS: devices[1],
+  }))
 );
 
 app.listen(3000, () => {
