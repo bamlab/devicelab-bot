@@ -31,9 +31,9 @@ const getDevices = () =>
   .then(uuids =>
     Promise.all(uuids.map(uuid => getDeviceInfo(uuid))));
 
-const installAppOnDevices = ipaPath =>
+const installAppOnDevices = (ipaPath, appName) =>
   getDevices().then(devices => Promise.all(devices.map((device) => {
-    console.log(`Installing ${ipaPath} on ${device.displayName} (${device.osVersion})`);
+    console.log(`Installing ${appName} on ${device.displayName} (${device.osVersion})`);
     return executeCommand(`ideviceinstaller -u ${device.id} -i "${ipaPath}"`);
   })));
 

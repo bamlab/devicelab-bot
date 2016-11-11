@@ -37,8 +37,6 @@ const query = (url, method) =>
 const BUILD_FOLDER = 'build';
 
 const downloadBuild = (buildUrl, appName, isAndroid) => {
-  console.log(`Downloading build from ${buildUrl}`);
-
   const buildFolder = `${BUILD_FOLDER}/${appName}`;
   if (!fs.existsSync(BUILD_FOLDER)) {
     fs.mkdirSync(BUILD_FOLDER);
@@ -51,9 +49,7 @@ const downloadBuild = (buildUrl, appName, isAndroid) => {
 
   return download(buildUrl)
   .then((fileData) => {
-    console.log('Writing file to ', filePath);
     fs.writeFileSync(filePath, fileData);
-    console.log(`${filePath} written`);
 
     return filePath;
   });
@@ -61,12 +57,12 @@ const downloadBuild = (buildUrl, appName, isAndroid) => {
 
 const getMyAndroidApp = (buildUrl, appName) =>
   downloadBuild(buildUrl, appName, true)
-  .then(apkPath => androidClient.installAppOnDevices(apkPath));
+  .then(apkPath => androidClient.installAppOnDevices(apkPath, appName));
 
 
 const getMyIosApp = (buildUrl, appName) =>
   downloadBuild(buildUrl, appName, false)
-  .then(ipaPath => iosClient.installAppOnDevices(ipaPath));
+  .then(ipaPath => iosClient.installAppOnDevices(ipaPath, appName));
 
 const getMyApp = appId =>
   query(`/apps/${appId}/app_versions?include_build_urls=true`)
@@ -80,7 +76,7 @@ const getMyApp = appId =>
       return isAndroid ? getMyAndroidApp(buildUrl, appName) : getMyIosApp(buildUrl, appName);
     })
     .then(() => console.log('Done.'))
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
 
 module.exports = {
   getMyApp,

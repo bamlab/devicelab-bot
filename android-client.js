@@ -15,9 +15,9 @@ const getDevices = () =>
     ))
   );
 
-const installAppOnDevices = apkPath =>
+const installAppOnDevices = (apkPath, appName) =>
   getDevices().then(devices => Promise.all(devices.map((device) => {
-    console.log(`Installing ${apkPath} on ${device.displayName} (${device.osVersion})`);
+    console.log(`Installing ${appName} on ${device.displayName} (${device.osVersion})`);
     return adb.install(device.id, apkPath);
   })));
 
