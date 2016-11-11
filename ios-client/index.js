@@ -1,4 +1,5 @@
 const shell = require('shelljs');
+const iosDeviceModels = require('./ios-device-models');
 
 shell.config.silent = true;
 
@@ -22,7 +23,7 @@ const getDeviceInfo = uuid => executeCommand(`ideviceinfo -u ${uuid}`)
   }, {}))
   .then(properties => ({
     id: uuid,
-    displayName: properties.ProductType,
+    displayName: iosDeviceModels[properties.ProductType].familyName,
     osVersion: `iOS ${properties.ProductVersion}`,
   }));
 
