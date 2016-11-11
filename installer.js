@@ -3,7 +3,7 @@
 const fs = require('fs');
 const download = require('download');
 const androidClient = require('./android-client');
-const iDeviceInstaller = require('./iDeviceInstaller');
+const iosClient = require('./ios-client');
 
 const args = require('yargs')
   .demand(['token'])
@@ -66,7 +66,7 @@ const getMyAndroidApp = (buildUrl, appName) =>
 
 const getMyIosApp = (buildUrl, appName) =>
   downloadBuild(buildUrl, appName, false)
-  .then(ipaPath => iDeviceInstaller.installIpaOnDevices(ipaPath));
+  .then(ipaPath => iosClient.installAppOnDevices(ipaPath));
 
 const getMyApp = appId =>
   query(`/apps/${appId}/app_versions?include_build_urls=true`)
