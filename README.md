@@ -3,14 +3,14 @@
 ## Installation
 
 ```
-./install.sh
+./install/install.sh
 ```
 
 ## Usage
 
 Start your node server
 ```
-node server.js --token <HockeyApp token>
+node src/server.js --token <HockeyApp token>
 ```
 
 Serve it to the world with `ngrox`:
