@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Devicelab BOT</title>
+  </head>
+  <body>
+    <input id="hockeyAppId" autocomplete="off" /><button onclick="installApp()">Install</button>
+    <div id="logs" />
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var checkLogsInterval;
+
+      function checkLogs(buildId) {
+        $.get('/build/' + buildId, function(logs) {
+          $('#logs').empty();
+          logs.forEach(function (log) {
+            $('#logs').append('<div>' + log + '</div>');
+            if (log === 'Done') clearInterval(checkLogsInterval);
+          });
+        }).fail(function() {
+          alert( "Aaaa something weird happened..." );
+        });
+      }
+
+      function installApp() {
+        var hockeyAppId = $('#hockeyAppId').val();
+        $('#logs').append('Here we go...');
+        $.get('/install/' + hockeyAppId, function(buildId) {
+          checkLogsInterval = setInterval(function() {checkLogs(buildId)}, 1000);
+          checkLogs(buildId);
+        }).fail(function() {
+          alert( "Aaaa something weird happened..." );
+        });
+      }
+    </script>
+  </body>
+</html>

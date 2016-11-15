@@ -7,10 +7,12 @@ const iosClient = require('./ios-client');
 
 const app = express();
 
+app.get('/', (req, res) => res.sendfile('src/index.html'));
+
 app.get('/install/:hockeyAppId', (req, res) => {
   const buildId = createBuildLog();
   installer.getMyApp(buildId, req.params.hockeyAppId);
-  res.send(`Installation has started, ping /build/${buildId} to get the logs`);
+  res.send(buildId);
 });
 
 app.get('/devices', (req, res) =>

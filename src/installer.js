@@ -44,7 +44,7 @@ const getMyApp = async (buildId, hockeyAppId) => {
       addBuildLog(buildId, `Installing ${appName} on ${device.displayName} (${device.osVersion})`);
       await deviceClient.installAppOnDevice(device.id, buildFilePath);
     }
-    console.log('Done');
+    addBuildLog(buildId, 'Done');
   } catch (err) {
     addBuildLog(buildId, `ERROR: ${err}`);
   }
