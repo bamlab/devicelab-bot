@@ -2,6 +2,20 @@
 
 const adb = require('adbkit').createClient();
 
+const wakeUpDevice = deviceId => adb.shell(deviceId, 'input keyevent KEYCODE_WAKEUP');
+
+const delay = timeout => new Promise(resolve => setTimeout(resolve, timeout));
+
+const unlockDevice = (deviceId, code) =>
+  delay(2000)
+  .then(() => adb.shell(deviceId, 'input keyevent 66'))
+  .then(() => delay(2000))
+  .then(() => adb.shell(deviceId, `input text 170892`))
+  .then(() => delay(2000))
+  .then(() => adb.shell(deviceId, 'input keyevent 66'));
+
+const runAppOnDevice = (deviceId, packageName) => adb.shell(deviceId, `monkey -p ${packageName} 1`);
+
 const getDevices = () =>
   adb.listDevices()
   .then(devices =>
@@ -25,3 +39,5 @@ module.exports = {
   getDevices,
   installAppOnDevices,
 };
+
+wakeUpDevice('TA045089AJ').then(() => unlockDevice('TA045089AJ', '170892'));
