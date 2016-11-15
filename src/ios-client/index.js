@@ -27,18 +27,14 @@ const getDeviceInfo = uuid => executeCommand(`ideviceinfo -u ${uuid}`)
     osVersion: `iOS ${properties.ProductVersion}`,
   }));
 
-const getDevices = () =>
+const getDevices = async () =>
   getDevicesUuid()
   .then(uuids =>
     Promise.all(uuids.map(uuid => getDeviceInfo(uuid))));
 
-const installAppOnDevices = (ipaPath, appName) =>
-  getDevices().then(devices => Promise.all(devices.map((device) => {
-    console.log(`Installing ${appName} on ${device.displayName} (${device.osVersion})`);
-    return executeCommand(`ideviceinstaller -u ${device.id} -i "${ipaPath}"`);
-  })));
+const installAppOnDevice = async (deviceId, ipaPath) => executeCommand(`ideviceinstaller -u ${deviceId} -i "${ipaPath}"`);
 
 module.exports = {
   getDevices,
-  installAppOnDevices,
+  installAppOnDevice,
 };

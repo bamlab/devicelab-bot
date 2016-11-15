@@ -1,38 +1,12 @@
 #!/usr/bin/env node
 
+import 'babel-polyfill';
+
 const fs = require('fs');
 const download = require('download');
 const androidClient = require('./android-client');
 const iosClient = require('./ios-client');
-
-const args = require('yargs')
-  .demand(['token'])
-  .argv;
-const fetch = require('node-fetch');
-
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
-}
-
-const parseJson = response => response.json();
-
-const query = (url, method) =>
-  fetch(`https://rink.hockeyapp.net/api/2${url}`, {
-    method: method || 'GET',
-    headers: {
-      'X-HockeyAppToken': args.token,
-    },
-  })
-  .then(checkStatus)
-  .catch((error) => {
-    console.log('request failed', error);
-  });
+const hockeyAppClient = require('./hockeyapp-client');
 
 const BUILD_FOLDER = 'build';
 
@@ -55,28 +29,20 @@ const downloadBuild = (buildUrl, appName, isAndroid) => {
   });
 };
 
-const getMyAndroidApp = (buildUrl, appName) =>
-  downloadBuild(buildUrl, appName, true)
-  .then(apkPath => androidClient.installAppOnDevices(apkPath, appName));
+const getMyApp = async (hockeyAppId) => {
+  const { appName, buildUrl, isAndroid } = await hockeyAppClient.getAppInfo(hockeyAppId);
 
+  console.log(`Downloading ${appName} for ${isAndroid ? 'Android' : 'iOS'}`);
+  const buildFilePath = await downloadBuild(buildUrl, appName, isAndroid);
 
-const getMyIosApp = (buildUrl, appName) =>
-  downloadBuild(buildUrl, appName, false)
-  .then(ipaPath => iosClient.installAppOnDevices(ipaPath, appName));
+  const deviceClient = isAndroid ? androidClient : iosClient;
+  const devices = await deviceClient.getDevices();
 
-const getMyApp = appId =>
-  query(`/apps/${appId}/app_versions?include_build_urls=true`)
-    .then(parseJson)
-    .then((app) => {
-      const appName = app.app_versions[0].title;
-      const buildUrl = app.app_versions[0].build_url;
-      const isAndroid = buildUrl.indexOf('format=apk') !== -1;
-      console.log(`Downloading ${appName} for ${isAndroid ? 'Android' : 'iOS'}`);
-
-      return isAndroid ? getMyAndroidApp(buildUrl, appName) : getMyIosApp(buildUrl, appName);
-    })
-    .then(() => console.log('Done.'))
-    .catch(err => console.error(err));
+  for (const device of devices) {
+    console.log(`Installing ${appName} on ${device.displayName} (${device.osVersion})`);
+    await deviceClient.installAppOnDevice(device.id, buildFilePath);
+  }
+};
 
 module.exports = {
   getMyApp,

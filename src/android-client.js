@@ -3,7 +3,7 @@
 const adb = require('adbkit').createClient();
 const _ = require('lodash');
 
-const getDevices = () =>
+const getDevices = async () =>
   adb.listDevices()
   .then(devices =>
     Promise.all(devices.map(device =>
@@ -16,13 +16,9 @@ const getDevices = () =>
     ))
   );
 
-const installAppOnDevices = (apkPath, appName) =>
-  getDevices().then(devices => Promise.all(devices.map((device) => {
-    console.log(`Installing ${appName} on ${device.displayName} (${device.osVersion})`);
-    return adb.install(device.id, apkPath);
-  })));
+const installAppOnDevice = async (deviceId, apkPath) => adb.install(deviceId, apkPath);
 
 module.exports = {
   getDevices,
-  installAppOnDevices,
+  installAppOnDevice,
 };

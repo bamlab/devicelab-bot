@@ -10,7 +10,7 @@
 
 Start your node server
 ```
-node src/server.js --token <HockeyApp token>
+./node_modules/.bin/babel-node src/server.js --token <HockeyApp token>
 ```
 
 Serve it to the world with `ngrox`:
