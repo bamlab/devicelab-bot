@@ -1,3 +1,5 @@
+import { createBuildLog, getBuildLogs } from './buildLogs';
+
 const express = require('express');
 const installer = require('./installer');
 const androidClient = require('./android-client');
@@ -5,10 +7,11 @@ const iosClient = require('./ios-client');
 
 const app = express();
 
-app.get('/install/:hockeyAppId', (req, res) =>
-  installer.getMyApp(req.params.hockeyAppId)
-  .then(() => res.send('Done'))
-);
+app.get('/install/:hockeyAppId', (req, res) => {
+  const buildId = createBuildLog();
+  installer.getMyApp(buildId, req.params.hockeyAppId);
+  res.send(`Installation has started, ping /build/${buildId} to get the logs`);
+});
 
 app.get('/devices', (req, res) =>
   Promise.all([
@@ -19,6 +22,8 @@ app.get('/devices', (req, res) =>
     iOS: devices[1],
   }))
 );
+
+app.get('/build/:buildId', (req, res) => res.json(getBuildLogs(req.params.buildId)));
 
 app.listen(3000, () => {
   console.log('Bot listening on port 3000');

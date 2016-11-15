@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import 'babel-polyfill';
+import { addBuildLog } from './buildLogs';
 
 const fs = require('fs');
 const download = require('download');
@@ -29,18 +30,23 @@ const downloadBuild = (buildUrl, appName, isAndroid) => {
   });
 };
 
-const getMyApp = async (hockeyAppId) => {
-  const { appName, buildUrl, isAndroid } = await hockeyAppClient.getAppInfo(hockeyAppId);
+const getMyApp = async (buildId, hockeyAppId) => {
+  try {
+    const { appName, buildUrl, isAndroid } = await hockeyAppClient.getAppInfo(hockeyAppId);
 
-  console.log(`Downloading ${appName} for ${isAndroid ? 'Android' : 'iOS'}`);
-  const buildFilePath = await downloadBuild(buildUrl, appName, isAndroid);
+    addBuildLog(buildId, `Downloading ${appName} for ${isAndroid ? 'Android' : 'iOS'}`);
+    const buildFilePath = await downloadBuild(buildUrl, appName, isAndroid);
 
-  const deviceClient = isAndroid ? androidClient : iosClient;
-  const devices = await deviceClient.getDevices();
+    const deviceClient = isAndroid ? androidClient : iosClient;
+    const devices = await deviceClient.getDevices();
 
-  for (const device of devices) {
-    console.log(`Installing ${appName} on ${device.displayName} (${device.osVersion})`);
-    await deviceClient.installAppOnDevice(device.id, buildFilePath);
+    for (const device of devices) {
+      addBuildLog(buildId, `Installing ${appName} on ${device.displayName} (${device.osVersion})`);
+      await deviceClient.installAppOnDevice(device.id, buildFilePath);
+    }
+    console.log('Done');
+  } catch (err) {
+    addBuildLog(buildId, `ERROR: ${err}`);
   }
 };
 

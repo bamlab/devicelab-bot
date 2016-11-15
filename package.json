@@ -18,6 +18,7 @@
     "express": "^4.14.0",
     "lodash": "^4.17.1",
     "node-fetch": "^1.6.0",
+    "node-uuid": "^1.4.7",
     "shelljs": "^0.7.5",
     "yargs": "^5.0.0"
   },
