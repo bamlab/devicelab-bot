@@ -30,6 +30,16 @@ const downloadBuild = (buildUrl, appName, isAndroid) => {
   });
 };
 
+const installAppOnDevice = async (buildId, appName, buildFilePath, deviceClient, device) => {
+  addBuildLog(buildId, `Installing ${appName} on ${device.displayName} (${device.osVersion})`);
+  try {
+    await deviceClient.installAppOnDevice(device.id, buildFilePath);
+    addBuildLog(buildId, `Done installing ${appName} on ${device.displayName} (${device.osVersion})`);
+  } catch (err) {
+    addBuildLog(buildId, `ERROR installing ${appName} on ${device.displayName} (${device.osVersion}): ${err}`);
+  }
+};
+
 const installApp = async (buildId, hockeyAppId) => {
   try {
     const { appName, buildUrl, isAndroid } = await hockeyAppClient.getAppInfo(hockeyAppId);
@@ -40,19 +50,19 @@ const installApp = async (buildId, hockeyAppId) => {
     const deviceClient = isAndroid ? androidClient : iosClient;
     const devices = await deviceClient.getDevices();
 
-    for (const device of devices) {
-      addBuildLog(buildId, `Installing ${appName} on ${device.displayName} (${device.osVersion})`);
-      await deviceClient.installAppOnDevice(device.id, buildFilePath);
-    }
-    addBuildLog(buildId, 'Done');
+    await Promise.all(devices.map(device =>
+      installAppOnDevice(buildId, appName, buildFilePath, deviceClient, device)));
+    addBuildLog(buildId, `Done installing ${appName} for ${isAndroid ? 'Android' : 'iOS'}`);
   } catch (err) {
     addBuildLog(buildId, `ERROR: ${err}`);
   }
 };
 
 const installAppByName = async (buildId, appName) => {
+  addBuildLog(buildId, `Installing ${appName}`);
   const hockeyAppIds = await hockeyAppClient.getHockeyAppIdsFromAppName(appName);
-  hockeyAppIds.forEach(hockeyAppId => installApp(buildId, hockeyAppId));
+  await Promise.all(hockeyAppIds.map(hockeyAppId => installApp(buildId, hockeyAppId)));
+  addBuildLog(buildId, 'Done');
 };
 
 module.exports = {
