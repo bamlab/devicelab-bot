@@ -44,6 +44,22 @@ const getAppInfo = async hockeyAppId =>
       };
     });
 
+const getApps = () =>
+  query('/apps').then(parseJson).then(result => result.apps);
+
+const getHockeyAppIdsFromAppName = async (appName) => {
+  const apps = await getApps();
+  const appNameToHockeyappIds = apps.reduce((result, app) => ({
+    ...result,
+    [app.title]: (result[app.title] || []).concat([app.public_identifier]),
+  }), {});
+
+  return appNameToHockeyappIds[appName] || [];
+};
+
+
 module.exports = {
   getAppInfo,
+  getApps,
+  getHockeyAppIdsFromAppName,
 };

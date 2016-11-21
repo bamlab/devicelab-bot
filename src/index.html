@@ -4,11 +4,28 @@
     <title>Devicelab BOT</title>
   </head>
   <body>
-    <input id="hockeyAppId" autocomplete="off" /><button onclick="installApp()">Install</button>
+    <input id="hockeyAppName" autocomplete="off" /><button onclick="installApp()">Install</button>
     <div id="logs" />
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var checkLogsInterval;
+
+      var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+          sURLVariables = sPageURL.split('&'),
+          sParameterName,
+          i;
+
+          for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+              return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+          }
+      };
+
+      $('#hockeyAppName').val(getUrlParameter('appName'));
 
       function checkLogs(buildId) {
         $.get('/build/' + buildId, function(logs) {
@@ -23,9 +40,9 @@
       }
 
       function installApp() {
-        var hockeyAppId = $('#hockeyAppId').val();
+        var hockeyAppName = $('#hockeyAppName').val();
         $('#logs').append('Here we go...');
-        $.get('/install/' + hockeyAppId, function(buildId) {
+        $.get('/install?appName=' + encodeURIComponent(hockeyAppName), function(buildId) {
           checkLogsInterval = setInterval(function() {checkLogs(buildId)}, 1000);
           checkLogs(buildId);
         }).fail(function() {

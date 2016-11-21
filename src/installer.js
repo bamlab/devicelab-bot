@@ -30,7 +30,7 @@ const downloadBuild = (buildUrl, appName, isAndroid) => {
   });
 };
 
-const getMyApp = async (buildId, hockeyAppId) => {
+const installApp = async (buildId, hockeyAppId) => {
   try {
     const { appName, buildUrl, isAndroid } = await hockeyAppClient.getAppInfo(hockeyAppId);
 
@@ -50,6 +50,12 @@ const getMyApp = async (buildId, hockeyAppId) => {
   }
 };
 
+const installAppByName = async (buildId, appName) => {
+  const hockeyAppIds = await hockeyAppClient.getHockeyAppIdsFromAppName(appName);
+  hockeyAppIds.forEach(hockeyAppId => installApp(buildId, hockeyAppId));
+};
+
 module.exports = {
-  getMyApp,
+  installApp,
+  installAppByName,
 };
