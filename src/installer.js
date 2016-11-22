@@ -40,9 +40,20 @@ const installAppOnDevice = async (buildId, appName, buildFilePath, deviceClient,
   }
 };
 
-const installApp = async (buildId, hockeyAppId) => {
+const uninstallAppFromDevice = async (buildId, appName, packageName, deviceClient, device) => {
+  addBuildLog(buildId, `Uninstalling ${appName} from ${device.displayName} (${device.osVersion})`);
   try {
-    const { appName, buildUrl, isAndroid } = await hockeyAppClient.getAppInfo(hockeyAppId);
+    await deviceClient.uninstallAppFromDevice(device.id, packageName);
+    addBuildLog(buildId, `Done uninstalling ${appName} from ${device.displayName} (${device.osVersion})`);
+  } catch (err) {
+    addBuildLog(buildId, `ERROR uninstalling ${appName} from ${device.displayName} (${device.osVersion}): ${err}`);
+  }
+};
+
+const installApp = async (buildId, hockeyAppInfo, reinstall) => {
+  try {
+    const { appName, buildUrl, isAndroid } = await hockeyAppClient
+      .getAppVersionInfo(hockeyAppInfo.hockeyappId);
 
     addBuildLog(buildId, `Downloading ${appName} for ${isAndroid ? 'Android' : 'iOS'}`);
     const buildFilePath = await downloadBuild(buildUrl, appName, isAndroid);
@@ -50,18 +61,25 @@ const installApp = async (buildId, hockeyAppId) => {
     const deviceClient = isAndroid ? androidClient : iosClient;
     const devices = await deviceClient.getDevices();
 
+    if (reinstall) {
+      await Promise.all(devices.map(device =>
+        uninstallAppFromDevice(buildId, appName, hockeyAppInfo.packageName, deviceClient, device)));
+    }
+
     await Promise.all(devices.map(device =>
       installAppOnDevice(buildId, appName, buildFilePath, deviceClient, device)));
+
     addBuildLog(buildId, `Done installing ${appName} for ${isAndroid ? 'Android' : 'iOS'}`);
   } catch (err) {
     addBuildLog(buildId, `ERROR: ${err}`);
   }
 };
 
-const installAppByName = async (buildId, appName) => {
+const installAppByName = async (buildId, appName, reinstall = false) => {
   addBuildLog(buildId, `Installing ${appName}`);
-  const hockeyAppIds = await hockeyAppClient.getHockeyAppIdsFromAppName(appName);
-  await Promise.all(hockeyAppIds.map(hockeyAppId => installApp(buildId, hockeyAppId)));
+  const hockeyAppInfos = await hockeyAppClient.getHockeyAppInfoFromName(appName);
+  await Promise.all(hockeyAppInfos.map(hockeyAppInfo =>
+    installApp(buildId, hockeyAppInfo, reinstall)));
   addBuildLog(buildId, 'Done');
 };
 

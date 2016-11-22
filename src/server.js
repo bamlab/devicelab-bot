@@ -12,13 +12,7 @@ app.get('/', (req, res) => res.sendfile('src/index.html'));
 
 app.get('/install', (req, res) => {
   const buildId = createBuildLog();
-  installer.installAppByName(buildId, req.query.appName);
-  res.send(buildId);
-});
-
-app.get('/install/:hockeyAppId', (req, res) => {
-  const buildId = createBuildLog();
-  installer.installApp(buildId, req.params.hockeyAppId);
+  installer.installAppByName(buildId, req.query.appName, req.query.reinstall);
   res.send(buildId);
 });
 
@@ -33,6 +27,8 @@ app.get('/devices', (req, res) =>
 );
 
 app.get('/apps', (req, res) => hockeyAppClient.getApps().then(apps => res.json(apps)));
+
+app.get('/apps/:appName', (req, res) => hockeyAppClient.getHockeyAppInfoFromName(req.params.appName).then(apps => res.json(apps)));
 
 app.get('/build/:buildId', (req, res) => res.json(getBuildLogs(req.params.buildId)));
 

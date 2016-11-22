@@ -29,7 +29,7 @@ const query = (url, method) =>
     console.log('request failed', error);
   });
 
-const getAppInfo = async hockeyAppId =>
+const getAppVersionInfo = async hockeyAppId =>
   query(`/apps/${hockeyAppId}/app_versions?include_build_urls=true`)
     .then(parseJson)
     .then((app) => {
@@ -44,22 +44,40 @@ const getAppInfo = async hockeyAppId =>
       };
     });
 
+let appNameToHockeyappInfo = {};
+
 const getApps = () =>
   query('/apps').then(parseJson).then(result => result.apps);
 
-const getHockeyAppIdsFromAppName = async (appName) => {
+const loadApps = async () => {
   const apps = await getApps();
-  const appNameToHockeyappIds = apps.reduce((result, app) => ({
+  appNameToHockeyappInfo = apps.reduce((result, app) => ({
     ...result,
-    [app.title]: (result[app.title] || []).concat([app.public_identifier]),
+    [app.title]: (result[app.title] || []).concat([{
+      hockeyappId: app.public_identifier,
+      packageName: app.bundle_identifier,
+    }]),
   }), {});
+};
 
-  return appNameToHockeyappIds[appName] || [];
+const getHockeyAppInfoFromName = async (appName) => {
+  let appInfo = appNameToHockeyappInfo[appName];
+
+  if (!appInfo) {
+    await loadApps();
+    appInfo = appNameToHockeyappInfo[appName];
+
+    if (!appInfo) {
+      throw new Error(`App ${appName} could not be found`);
+    }
+  }
+
+  return appInfo;
 };
 
 
 module.exports = {
-  getAppInfo,
+  getAppVersionInfo,
   getApps,
-  getHockeyAppIdsFromAppName,
+  getHockeyAppInfoFromName,
 };

@@ -2,10 +2,21 @@
 <html>
   <head>
     <title>Devicelab BOT</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
-    <input id="hockeyAppName" autocomplete="off" /><button onclick="installApp()">Install</button>
-    <div id="logs" />
+    <div class="container">
+      <div class="form-group">
+        <input type="text" class="form-control" id="hockeyAppName" placeholder="App name">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input id="reinstall" type="checkbox">Reinstall
+        </label>
+      </div>
+      <button onclick="installApp()" type="submit" class="btn btn-default">Install</button>
+      <div id="logs" />
+    </div>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var checkLogsInterval;
@@ -42,7 +53,7 @@
       function installApp() {
         var hockeyAppName = $('#hockeyAppName').val();
         $('#logs').append('Here we go...');
-        $.get('/install?appName=' + encodeURIComponent(hockeyAppName), function(buildId) {
+        $.get('/install?appName=' + encodeURIComponent(hockeyAppName) + (document.getElementById('reinstall').checked ? '&reinstall=true' : ''), function(buildId) {
           checkLogsInterval = setInterval(function() {checkLogs(buildId)}, 1000);
           checkLogs(buildId);
         }).fail(function() {

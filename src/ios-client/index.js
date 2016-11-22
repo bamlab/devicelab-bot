@@ -34,7 +34,10 @@ const getDevices = async () =>
 
 const installAppOnDevice = async (deviceId, ipaPath) => executeCommand(`ideviceinstaller -u ${deviceId} -i "${ipaPath}"`);
 
+const uninstallAppFromDevice = async (deviceId, packageName) => executeCommand(`ideviceinstaller -u ${deviceId} -U ${packageName}`);
+
 module.exports = {
   getDevices,
   installAppOnDevice,
+  uninstallAppFromDevice,
 };

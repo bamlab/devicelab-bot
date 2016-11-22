@@ -18,7 +18,10 @@ const getDevices = async () =>
 
 const installAppOnDevice = async (deviceId, apkPath) => adb.install(deviceId, apkPath);
 
+const uninstallAppFromDevice = async (deviceId, apkPath) => adb.uninstall(deviceId, apkPath);
+
 module.exports = {
   getDevices,
   installAppOnDevice,
+  uninstallAppFromDevice,
 };
