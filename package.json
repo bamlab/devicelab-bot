@@ -9,22 +9,28 @@
     "type": "git",
     "url": "https://github.com/almouro/hockeyapp-remover"
   },
+  "scripts": {
+    "test": "./node_modules/.bin/eslint src && ./node_modules/.bin/flow"
+  },
   "dependencies": {
-    "adbkit": "^2.6.1",
-    "babel-cli": "^6.14.0",
-    "babel-polyfill": "^6.16.0",
-    "babel-preset-react-native": "^1.9.0",
-    "download": "^5.0.2",
-    "express": "^4.14.0",
-    "lodash": "^4.17.1",
-    "node-fetch": "^1.6.0",
-    "node-uuid": "^1.4.7",
-    "shelljs": "^0.7.5",
-    "yargs": "^5.0.0"
+    "adbkit": "2.6.1",
+    "babel-cli": "6.14.0",
+    "babel-polyfill": "6.16.0",
+    "babel-preset-react-native": "1.9.0",
+    "download": "5.0.2",
+    "express": "4.14.0",
+    "lodash": "4.17.1",
+    "node-fetch": "1.6.0",
+    "node-uuid": "1.4.7",
+    "shelljs": "0.7.5",
+    "yargs": "5.0.0"
   },
   "devDependencies": {
-    "eslint": "^3.8.0",
-    "eslint-config-airbnb-base": "^8.0.0",
-    "eslint-plugin-import": "^1.16.0"
+    "babel-eslint": "7.1.1",
+    "eslint": "3.8.0",
+    "eslint-config-airbnb-base": "8.0.0",
+    "eslint-plugin-flowtype": "2.25.0",
+    "eslint-plugin-import": "1.16.0",
+    "flow-bin": "0.35.0"
   }
 }

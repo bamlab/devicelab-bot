@@ -1,17 +1,16 @@
-#!/usr/bin/env node
+// @flow
 
 import 'babel-polyfill';
 import { addBuildLog } from './buildLogs';
+import { androidClient, iosClient } from './device-clients';
 
 const fs = require('fs');
 const download = require('download');
-const androidClient = require('./android-client');
-const iosClient = require('./ios-client');
 const hockeyAppClient = require('./hockeyapp-client');
 
 const BUILD_FOLDER = 'build';
 
-const downloadBuild = (buildUrl, appName, isAndroid) => {
+const downloadBuild = (buildUrl: string, appName: string, isAndroid: boolean): Promise<string> => {
   const buildFolder = `${BUILD_FOLDER}/${appName}`;
   if (!fs.existsSync(BUILD_FOLDER)) {
     fs.mkdirSync(BUILD_FOLDER);
@@ -30,7 +29,8 @@ const downloadBuild = (buildUrl, appName, isAndroid) => {
   });
 };
 
-const installAppOnDevice = async (buildId, appName, buildFilePath, deviceClient, device) => {
+const installAppOnDevice = async (buildId: string, appName: string, buildFilePath: string,
+  deviceClient: DeviceClientType, device: DeviceType): Promise<void> => {
   addBuildLog(buildId, `Installing ${appName} on ${device.displayName} (${device.osVersion})`);
   try {
     await deviceClient.installAppOnDevice(device.id, buildFilePath);
@@ -40,7 +40,8 @@ const installAppOnDevice = async (buildId, appName, buildFilePath, deviceClient,
   }
 };
 
-const uninstallAppFromDevice = async (buildId, appName, packageName, deviceClient, device) => {
+const uninstallAppFromDevice = async (buildId, appName, packageName,
+  deviceClient, device): Promise<void> => {
   addBuildLog(buildId, `Uninstalling ${appName} from ${device.displayName} (${device.osVersion})`);
   try {
     await deviceClient.uninstallAppFromDevice(device.id, packageName);
@@ -50,7 +51,8 @@ const uninstallAppFromDevice = async (buildId, appName, packageName, deviceClien
   }
 };
 
-const installApp = async (buildId, hockeyAppInfo, reinstall) => {
+const installApp = async (buildId: string, hockeyAppInfo: HockeyappInfoType,
+  reinstall: boolean): Promise<void> => {
   try {
     const { appName, buildUrl, isAndroid } = await hockeyAppClient
       .getAppVersionInfo(hockeyAppInfo.hockeyappId);
@@ -75,7 +77,8 @@ const installApp = async (buildId, hockeyAppInfo, reinstall) => {
   }
 };
 
-const installAppByName = async (buildId, appName, reinstall = false) => {
+const installAppByName = async (buildId: string, appName: string,
+  reinstall: boolean = false): Promise<void> => {
   addBuildLog(buildId, `Installing ${appName}`);
   const hockeyAppInfos = await hockeyAppClient.getHockeyAppInfoFromName(appName);
   await Promise.all(hockeyAppInfos.map(hockeyAppInfo =>

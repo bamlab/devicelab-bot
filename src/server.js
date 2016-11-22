@@ -1,9 +1,10 @@
+// @flow
+
 import { createBuildLog, getBuildLogs } from './buildLogs';
+import { androidClient, iosClient } from './device-clients';
 
 const express = require('express');
 const installer = require('./installer');
-const androidClient = require('./android-client');
-const iosClient = require('./ios-client');
 const hockeyAppClient = require('./hockeyapp-client');
 
 const app = express();

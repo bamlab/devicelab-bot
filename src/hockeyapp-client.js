@@ -1,25 +1,23 @@
-#!/usr/bin/env node
+// @flow
 
 const args = require('yargs')
   .demand(['token'])
   .argv;
 const fetch = require('node-fetch');
 
-function checkStatus(response) {
+function checkStatus(response: Object): Object {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
 
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
+  throw response;
 }
 
 const parseJson = response => response.json();
 
-const query = (url, method) =>
+const query = (url: string, method: string = 'GET') =>
   fetch(`https://rink.hockeyapp.net/api/2${url}`, {
-    method: method || 'GET',
+    method,
     headers: {
       'X-HockeyAppToken': args.token,
     },
@@ -29,7 +27,7 @@ const query = (url, method) =>
     console.log('request failed', error);
   });
 
-const getAppVersionInfo = async hockeyAppId =>
+const getAppVersionInfo = async (hockeyAppId: string): Promise<HockeyappVersionType> =>
   query(`/apps/${hockeyAppId}/app_versions?include_build_urls=true`)
     .then(parseJson)
     .then((app) => {
@@ -44,12 +42,12 @@ const getAppVersionInfo = async hockeyAppId =>
       };
     });
 
-let appNameToHockeyappInfo = {};
+let appNameToHockeyappInfo: { [title: string]: Array<HockeyappInfoType> } = {};
 
-const getApps = () =>
+const getApps = (): Promise<Array<HockeyappApiDataType>> =>
   query('/apps').then(parseJson).then(result => result.apps);
 
-const loadApps = async () => {
+const loadApps = async (): Promise<void> => {
   const apps = await getApps();
   appNameToHockeyappInfo = apps.reduce((result, app) => ({
     ...result,
@@ -60,7 +58,7 @@ const loadApps = async () => {
   }), {});
 };
 
-const getHockeyAppInfoFromName = async (appName) => {
+const getHockeyAppInfoFromName = async (appName: string): Promise<Array<HockeyappInfoType>> => {
   let appInfo = appNameToHockeyappInfo[appName];
 
   if (!appInfo) {

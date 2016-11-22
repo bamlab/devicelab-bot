@@ -1,9 +1,9 @@
-#!/usr/bin/env node
+// @flow
 
 const adb = require('adbkit').createClient();
 const _ = require('lodash');
 
-const getDevices = async () =>
+const getDevices = async (): Promise<Array<DeviceType>> =>
   adb.listDevices()
   .then(devices =>
     Promise.all(devices.map(device =>
@@ -16,9 +16,11 @@ const getDevices = async () =>
     ))
   );
 
-const installAppOnDevice = async (deviceId, apkPath) => adb.install(deviceId, apkPath);
+const installAppOnDevice = async (deviceId: string, apkPath: string): Promise<void> =>
+  adb.install(deviceId, apkPath);
 
-const uninstallAppFromDevice = async (deviceId, apkPath) => adb.uninstall(deviceId, apkPath);
+const uninstallAppFromDevice = async (deviceId: string, apkPath: string): Promise<void> =>
+  adb.uninstall(deviceId, apkPath);
 
 module.exports = {
   getDevices,
