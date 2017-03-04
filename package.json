@@ -10,6 +10,7 @@
     "url": "https://github.com/almouro/hockeyapp-remover"
   },
   "scripts": {
+    "start": "babel-node src/server",
     "test": "./node_modules/.bin/eslint src && ./node_modules/.bin/flow"
   },
   "dependencies": {
@@ -23,6 +24,7 @@
     "node-fetch": "1.6.0",
     "node-uuid": "1.4.7",
     "shelljs": "0.7.5",
+    "swagger-express": "^1.0.5",
     "yargs": "5.0.0"
   },
   "devDependencies": {

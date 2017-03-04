@@ -10,10 +10,12 @@
 
 Start your node server
 ```
-./node_modules/.bin/babel-node src/server.js --token <HockeyApp token>
+npm start -- --token <HockeyApp token>
 ```
 
 You can now install your apps to your devicelab from [http://localhost:3000](http://localhost:3000).
+
+An API documentation is available at [http://localhost:3000/docs](http://localhost:3000/docs).
 
 ## Serving the bot to others
 
@@ -31,3 +33,8 @@ You can now access the devicelab bot anywhere with `http://[ngrox id].ngrok.io`.
 You can also install your app by calling `/install?appName=<your-app-name>`.
 
 This will return a `build id`, that you can use to retrieve logs by calling `/build/:buildId`
+
+### API clients available
+
+- A [Fastlane plugin](https://github.com/bamlab/fastlane-plugin-devicelab_bot)
+- A [python client](./client.py)
