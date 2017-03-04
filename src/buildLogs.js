@@ -1,19 +1,26 @@
 // @flow
 
 import uuid from 'node-uuid';
+import LRUCache from 'lru-cache';
 
-const logs: { [buildId: string]: Array<string> } = {};
+export const MAX_STORED_BUILD = 500;
+
+const logsCache = new LRUCache(MAX_STORED_BUILD);
 
 export const createBuildLog = (): string => {
   const buildId = uuid.v4();
-  logs[buildId] = [];
+  logsCache.set(buildId, []);
 
   return buildId;
 };
 
+export const getBuildLogs = (buildId: string): Array<string> => logsCache.get(buildId);
+
 export const addBuildLog = (buildId: string, log: string): void => {
   console.log(log);
-  logs[buildId].push(log);
-};
 
-export const getBuildLogs = (buildId: string): Array<string> => logs[buildId];
+  const buildLogs = getBuildLogs(buildId);
+  if (buildLogs) {
+    buildLogs.push(log);
+  }
+};

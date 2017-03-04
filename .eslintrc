@@ -3,6 +3,13 @@
   "plugins": [
     "flowtype"
   ],
+  "globals": {
+    "describe": true,
+    "expect": true,
+    "it": true,
+    "beforeEach": true,
+    "jest": true
+  },
   "rules": {
     "arrow-parens": 0
   }
