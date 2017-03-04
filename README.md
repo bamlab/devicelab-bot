@@ -1,4 +1,4 @@
-# App installer bot
+# App installer bot [![Build Status](https://travis-ci.org/bamlab/devicelab-bot.svg?branch=master)](https://travis-ci.org/bamlab/devicelab-bot)
 
 ## Installation
 
