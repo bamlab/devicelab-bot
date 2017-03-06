@@ -6,14 +6,18 @@
  * description: Device Lab Bot
  */
 
+import type {
+  $Application as ApplicationType,
+  $Request as RequestType,
+  $Response as ResponseType,
+} from 'express';
+
 import { createBuildLog, getBuildLogs } from '../buildLogs';
 import installer from '../installer';
 import { androidClient, iosClient } from '../device-clients';
 import hockeyAppClient from '../hockeyapp-client';
 
-export default (app: any) => {
-  app.get('/', (req, res) => res.sendfile('src/index.html'));
-
+export default (app: ApplicationType) => {
   /**
    * @swagger
    * path: /install
@@ -34,10 +38,10 @@ export default (app: any) => {
    *          required: false
    *          dataType: boolean
    */
-  app.get('/install', (req, res) => {
+  app.get('/install', (request: RequestType, response: ResponseType) => {
     const buildId = createBuildLog();
-    installer.installAppByName(buildId, req.query.appName, req.query.reinstall);
-    res.send(buildId);
+    installer.installAppByName(buildId, request.query.appName, !!request.query.reinstall);
+    response.send(buildId);
   });
 
   /**
@@ -48,11 +52,11 @@ export default (app: any) => {
    *      summary: Get devices info
    *      nickname: Get Devices
    */
-  app.get('/devices', (req, res) =>
+  app.get('/devices', (request: RequestType, response: ResponseType) =>
     Promise.all([
       androidClient.getDevices(),
       iosClient.getDevices(),
-    ]).then(devices => res.json({
+    ]).then(devices => response.json({
       android: devices[0],
       iOS: devices[1],
     }))
@@ -66,7 +70,7 @@ export default (app: any) => {
    *      summary: Get apps available for Download
    *      nickname: Get Apps
    */
-  app.get('/apps', (req, res) => hockeyAppClient.getApps().then(apps => res.json(apps)));
+  app.get('/apps', (request: RequestType, response: ResponseType) => hockeyAppClient.getApps().then(apps => response.json(apps)));
 
   /**
    * @swagger
@@ -82,10 +86,10 @@ export default (app: any) => {
    *          required: true
    *          dataType: string
    */
-  app.get('/apps/:appName', (req, res) =>
-    hockeyAppClient.getHockeyAppInfoFromName(req.params.appName)
-    .then(apps => res.json(apps))
-    .catch((error: Error) => res.status(400).send(error.message))
+  app.get('/apps/:appName', (request: RequestType, response: ResponseType) =>
+    hockeyAppClient.getHockeyAppInfoFromName(request.params.appName)
+    .then(apps => response.json(apps))
+    .catch((error: Error) => response.status(400).send(error.message))
   );
 
   /**
@@ -102,5 +106,5 @@ export default (app: any) => {
    *          required: true
    *          dataType: int
    */
-  app.get('/build/:buildId', (req, res) => res.json(getBuildLogs(req.params.buildId)));
+  app.get('/build/:buildId', (request: RequestType, response: ResponseType) => response.json(getBuildLogs(request.params.buildId)));
 };

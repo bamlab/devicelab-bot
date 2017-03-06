@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Devicelab BOT</title>
+    <link href="./bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Device Lab Bot</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/docs">API Docs</a></li>
+          <li><a href="https://github.com/bamlab/devicelab-bot/issues">Issue?</a></li>
+          <li><a href="https://github.com/bamlab/devicelab-bot/stargazers">Star &#9733;</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="form-group">
+        <input type="text" class="form-control" id="hockeyAppName" placeholder="App name">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input id="reinstall" type="checkbox">Wipe app data first
+        </label>
+      </div>
+      <button id="install-button" type="submit" class="btn btn-default">Install</button>
+      <div id="logs" />
+    </div>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="./website.js"></script>
+  </body>
+</html>
