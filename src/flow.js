@@ -1,17 +1,24 @@
 // @flow
 /* eslint-disable no-undef */
 
+declare type AdbDeviceProperties = {
+  'ro.build.version.release': string,
+  'ro.product.display': string,
+  'ro.product.brand': string,
+  'ro.product.model': string,
+};
+
 declare type DeviceType = {|
   id: string,
   displayName: string,
   osVersion: string,
 |};
 
-declare type DeviceClientType = {|
+declare type DeviceClientType = {
   getDevices: () => Promise<Array<DeviceType>>,
   installAppOnDevice: (deviceId: string, ipaPath: string) => Promise<void>,
   uninstallAppFromDevice: (deviceId: string, apkPath: string) => Promise<void>,
-|};
+};
 
 declare type HockeyappApiDataType = {
   title: string,
