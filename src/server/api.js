@@ -11,7 +11,6 @@ import type {
   $Request as RequestType,
   $Response as ResponseType,
 } from 'express';
-import path from 'path';
 
 import { createBuildLog, getBuildLogs } from '../buildLogs';
 import installer from '../installer';
@@ -19,8 +18,6 @@ import { androidClient, iosClient } from '../device-clients';
 import hockeyAppClient from '../hockeyapp-client';
 
 export default (app: ApplicationType) => {
-  app.get('/', (request: RequestType, response: ResponseType) => response.sendFile(path.join(__dirname, 'index.html')));
-
   /**
    * @swagger
    * path: /install

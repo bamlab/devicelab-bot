@@ -11,6 +11,8 @@
     "jest": true
   },
   "rules": {
-    "arrow-parens": 0
+    "arrow-parens": 0,
+    "import/no-duplicates": 2,
+    "no-duplicate-imports": 0
   }
 }

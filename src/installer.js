@@ -80,9 +80,14 @@ const installApp = async (buildId: string, hockeyAppInfo: HockeyappInfoType,
 const installAppByName = async (buildId: string, appName: string,
   reinstall: boolean = false): Promise<void> => {
   addBuildLog(buildId, `Installing ${appName}`);
-  const hockeyAppInfos = await hockeyAppClient.getHockeyAppInfoFromName(appName);
-  await Promise.all(hockeyAppInfos.map(hockeyAppInfo =>
-    installApp(buildId, hockeyAppInfo, reinstall)));
+  try {
+    const hockeyAppInfos = await hockeyAppClient.getHockeyAppInfoFromName(appName);
+    await Promise.all(hockeyAppInfos.map(hockeyAppInfo =>
+      installApp(buildId, hockeyAppInfo, reinstall)));
+  } catch (error) {
+    addBuildLog(buildId, `ERROR: ${error.message}`);
+  }
+
   addBuildLog(buildId, 'Done');
 };
 
