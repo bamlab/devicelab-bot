@@ -1,3 +1,5 @@
+// @flow
+
 import androidClient from './index';
 
 jest.mock('adbkit', () => ({

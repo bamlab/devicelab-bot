@@ -1,9 +1,13 @@
 // @flow
 
+import type {
+  $Application as ApplicationType,
+} from 'express';
+
 import swagger from 'swagger-express';
 import path from 'path';
 
-export default (app: any) => {
+export default (app: ApplicationType) => {
   app.use(swagger.init(app, {
     apiVersion: '1.0',
     swaggerVersion: '1.0',

@@ -1,3 +1,5 @@
+// @flow
+
 import { createBuildLog, addBuildLog, getBuildLogs, MAX_STORED_BUILD } from './buildLogs';
 
 describe('buildLogs', () => {

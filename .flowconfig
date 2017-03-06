@@ -4,5 +4,6 @@
 
 [libs]
 src/flow.js
+flow-typed
 
 [options]

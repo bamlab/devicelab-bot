@@ -5,7 +5,7 @@ import LRUCache from 'lru-cache';
 
 export const MAX_STORED_BUILD = 500;
 
-const logsCache = new LRUCache(MAX_STORED_BUILD);
+const logsCache = new LRUCache({ max: MAX_STORED_BUILD });
 
 export const createBuildLog = (): string => {
   const buildId = uuid.v4();
