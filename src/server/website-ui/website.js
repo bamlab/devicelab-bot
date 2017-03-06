@@ -19,11 +19,24 @@
 
   const setHockeyAppNameValueFromPath = () => $('#hockeyAppName').val(getUrlParameter('appName'));
 
+  const getLogClass = (log) => {
+    const logLowerCased = log.toLowerCase();
+
+    if (logLowerCased.indexOf('error') > -1) {
+      return 'text-danger';
+    }
+    if (logLowerCased.indexOf('done') > -1) {
+      return 'text-success';
+    }
+
+    return '';
+  }
+
   const checkLogs = (buildId) => {
     $.get(`/build/${buildId}`, (logs) => {
       $('#logs').empty();
       logs.forEach((log) => {
-        $('#logs').append(`<div>${log}</div>`);
+        $('#logs').append(`<div class="${getLogClass(log)}">${log}</div>`);
         if (log === 'Done') clearInterval(checkLogsInterval);
       });
     }).fail(() => {
@@ -43,4 +56,5 @@
   };
 
   $('#install-button').click(installApp);
+  setHockeyAppNameValueFromPath();
 })($, window);
