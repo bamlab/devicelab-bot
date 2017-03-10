@@ -17,6 +17,12 @@ You can now install your apps to your devicelab from [http://localhost:3000](htt
 
 An API documentation is available at [http://localhost:3000/docs](http://localhost:3000/docs).
 
+### Using PM2
+
+```
+pm2 start src/server --interpreter ./node_modules/.bin/babel-node -x -- --token <HockeyApp token>
+```
+
 ## Serving the bot to others
 
 [Ngrok](https://ngrok.com/) is packaged with this.
