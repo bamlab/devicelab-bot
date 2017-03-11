@@ -8,8 +8,9 @@ import installer from '../installer';
 import { androidClient, iosClient } from '../device-clients';
 
 program
-.command('install <appName>')
-.action(appName => installer.installAppByName('', appName));
+.command('install <hockeyAppName>')
+.description('Install Hockey app on connected devices')
+.action(hockeyAppName => installer.installAppByName('', hockeyAppName));
 
 const displayDevices = (deviceClient: DeviceClientType, colorize: (text: string) => string) =>
   deviceClient.getDevices()
@@ -18,6 +19,7 @@ const displayDevices = (deviceClient: DeviceClientType, colorize: (text: string)
 
 program
 .command('devices')
+.description('List connected devices')
 .action(() => {
   displayDevices(androidClient, green);
   displayDevices(iosClient, blue);
