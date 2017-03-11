@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/almouro/hockeyapp-remover"
+    "url": "https://github.com/bamlab/devicelab-bot"
   },
   "bin": {
     "devicelab-bot": "./cli.js"
