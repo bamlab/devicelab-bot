@@ -1,5 +1,7 @@
 // @flow
 
+import 'babel-polyfill';
+
 import program from 'commander';
 import installer from '../installer';
 

@@ -1,0 +1,297 @@
+{
+    "iPhone1,1" :
+    {
+        "name" : "iPhone 2G",
+        "familyName" : "iPhone 2G"
+    },
+    "iPhone1,2" :
+    {
+        "name" : "iPhone 3G",
+        "familyName" : "iPhone 3G"
+    },
+    "iPhone2,1" :
+    {
+        "name" : "iPhone 3G[S]",
+        "familyName" : "iPhone 3G[S]"
+    },
+    "iPhone3,1" :
+    {
+        "name" : "iPhone 4 (GSM)",
+        "familyName" : "iPhone 4"
+    },
+    "iPhone3,2" :
+    {
+        "name" : "iPhone 4 (GSM / 2012)",
+        "familyName" : "iPhone 4"
+    },
+    "iPhone3,3" :
+    {
+        "name" : "iPhone 4 (CDMA)",
+        "familyName" : "iPhone 4"
+    },
+    "iPhone4,1" :
+    {
+        "name" : "iPhone 4[S]",
+        "familyName" : "iPhone 4[S]"
+    },
+    "iPhone5,1" :
+    {
+        "name" : "iPhone 5 (GSM)",
+        "familyName" : "iPhone 5"
+    },
+    "iPhone5,2" :
+    {
+        "name" : "iPhone 5 (Global)",
+        "familyName" : "iPhone 5"
+    },
+    "iPhone5,3" :
+    {
+        "name" : "iPhone 5c (GSM)",
+        "familyName" : "iPhone 5C"
+    },
+    "iPhone5,4" :
+    {
+        "name" : "iPhone 5c (Global)",
+        "familyName" : "iPhone 5C"
+    },
+    "iPhone6,1" :
+    {
+        "name" : "iPhone 5s (GSM)",
+        "familyName" : "iPhone 5S"
+    },
+    "iPhone6,2" :
+    {
+        "name" : "iPhone 5s (Global)",
+        "familyName" : "iPhone 5S"
+    },
+    "iPhone7,1" :
+    {
+        "name" : "iPhone 6+",
+        "familyName" : "iPhone 6+"
+    },
+    "iPhone7,2" :
+    {
+        "name" : "iPhone 6",
+        "familyName" : "iPhone 6"
+    },
+    "iPhone8,1" :
+    {
+        "name" : "iPhone 6s",
+        "familyName" : "iPhone 6s"
+    },
+    "iPhone8,2" :
+    {
+        "name" : "iPhone 6s+",
+        "familyName" : "iPhone 6s+"
+    },
+    "iPhone8,4" :
+    {
+        "name" : "iPhone SE",
+        "familyName" : "iPhone SE"
+    },
+    "iPod1,1" :
+    {
+        "name" : "iPod touch 1G",
+        "familyName" : "iPod touch"
+    },
+    "iPod2,1" :
+    {
+        "name" : "iPod touch 2G",
+        "familyName" : "iPod touch"
+    },
+    "iPod3,1" :
+    {
+        "name" : "iPod touch 3",
+        "familyName" : "iPod touch"
+    },
+    "iPod4,1" :
+    {
+        "name" : "iPod touch 4",
+        "familyName" : "iPod touch"
+    },
+    "iPod5,1" :
+    {
+        "name" : "iPod touch 5",
+        "familyName" : "iPod touch"
+    },
+    "iPod7,1" :
+    {
+        "name" : "iPod touch 6",
+        "familyName" : "iPod touch"
+    },
+    "iPad1,1" :
+    {
+        "name" : "iPad 1",
+        "familyName" : "iPad 1"
+    },
+    "iPad2,1" :
+    {
+        "name" : "iPad 2 (WiFi)",
+        "familyName" : "iPad 2"
+    },
+    "iPad2,2" :
+    {
+        "name" : "iPad 2 (GSM)",
+        "familyName" : "iPad 2"
+    },
+    "iPad2,3" :
+    {
+        "name" : "iPad 2 (CDMA)",
+        "familyName" : "iPad 2"
+    },
+    "iPad2,4" :
+    {
+        "name" : "iPad 2 (Mid 2012)",
+        "familyName" : "iPad 2"
+    },
+    "iPad2,5" :
+    {
+        "name" : "iPad Mini (WiFi)",
+        "familyName" : "iPad Mini"
+    },
+    "iPad2,6" :
+    {
+        "name" : "iPad Mini (GSM)",
+        "familyName" : "iPad Mini"
+    },
+    "iPad2,7" :
+    {
+        "name" : "iPad Mini (Global)",
+        "familyName" : "iPad Mini"
+    },
+    "iPad3,1" :
+    {
+        "name" : "iPad 3 (WiFi)",
+        "familyName" : "iPad 3"
+    },
+    "iPad3,2" :
+    {
+        "name" : "iPad 3 (CDMA)",
+        "familyName" : "iPad 3"
+    },
+    "iPad3,3" :
+    {
+        "name" : "iPad 3 (GSM)",
+        "familyName" : "iPad 3"
+    },
+    "iPad3,4" :
+    {
+        "name" : "iPad 4 (WiFi)",
+        "familyName" : "iPad 4"
+    },
+    "iPad3,5" :
+    {
+        "name" : "iPad 4 (GSM)",
+        "familyName" : "iPad 4"
+    },
+    "iPad3,6" :
+    {
+        "name" : "iPad 4 (Global)",
+        "familyName" : "iPad 4"
+    },
+    "iPad4,1" :
+    {
+        "name" : "iPad Air (WiFi)",
+        "familyName" : "iPad Air"
+    },
+    "iPad4,2" :
+    {
+        "name" : "iPad Air (Cellular)",
+        "familyName" : "iPad Air"
+    },
+    "iPad4,3" :
+    {
+        "name" : "iPad Air (China)",
+        "familyName" : "iPad Air"
+    },
+    "iPad4,4" :
+    {
+        "name" : "iPad Mini 2 (WiFi)",
+        "familyName" : "iPad Mini 2"
+    },
+    "iPad4,5" :
+    {
+        "name" : "iPad Mini 2 (Cellular)",
+        "familyName" : "iPad Mini 2"
+    },
+    "iPad4,6" :
+    {
+        "name" : "iPad Mini 2 (China)",
+        "familyName" : "iPad Mini 2"
+    },
+    "iPad4,7" :
+    {
+        "name" : "iPad Mini 3 (WiFi)",
+        "familyName" : "iPad Mini 3"
+    },
+    "iPad4,8" :
+    {
+        "name" : "iPad Mini 3 (Cellular)",
+        "familyName" : "iPad Mini 3"
+    },
+    "iPad4,9" :
+    {
+        "name" : "iPad Mini 3 (China)",
+        "familyName" : "iPad Mini 3"
+    },
+    "iPad5,1" :
+    {
+        "name" : "iPad Mini 4 (WiFi)",
+        "familyName" : "iPad Mini 4"
+    },
+    "iPad5,2" :
+    {
+        "name" : "iPad Mini 4 (Cellular)",
+        "familyName" : "iPad Mini 4"
+    },
+    "iPad5,3" :
+    {
+        "name" : "iPad Air 2 (WiFi)",
+        "familyName" : "iPad Air 2"
+    },
+    "iPad5,4" :
+    {
+        "name" : "iPad Air 2 (Cellular)",
+        "familyName" : "iPad Air 2"
+    },
+    "iPad6,3" :
+    {
+        "name" : "iPad Pro 9.7 (WiFi)",
+        "familyName" : "iPad Pro 9.7"
+    },
+    "iPad6,4" :
+    {
+        "name" : "iPad Pro 9.7 (Cellular)",
+        "familyName" : "iPad Pro 9.7"
+    },
+    "iPad6,7" :
+    {
+        "name" : "iPad Pro (WiFi)",
+        "familyName" : "iPad Pro"
+    },
+    "iPad6,8" :
+    {
+        "name" : "iPad Pro (Cellular)",
+        "familyName" : "iPad Pro"
+    },
+    "iPhone9,1" :
+    {
+        "name" : "iPhone 7 (CDMA+GSM/LTE)",
+        "familyName" : "iPhone 7"
+    },
+    "iPhone9,3" :
+    {
+        "name" : "iPhone 7 (GSM/LTE)",
+        "familyName" : "iPhone 7"
+    },
+    "iPhone9,2" :
+    {
+        "name" : "iPhone 7 Plus (CDMA+GSM/LTE)",
+        "familyName" : "iPhone 7 Plus"
+    },
+    "iPhone9,4" :
+    {
+        "name" : "iPhone 7 Plus (GSM/LTE)",
+        "familyName" : "iPhone 7 Plus"
+    }
+}

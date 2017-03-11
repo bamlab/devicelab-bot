@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "devicelab-bot",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -9,9 +9,13 @@
     "type": "git",
     "url": "https://github.com/almouro/hockeyapp-remover"
   },
+  "bin": {
+    "devicelab-bot": "./cli.js"
+  },
   "scripts": {
     "start": "babel-node src/server",
-    "test": "./node_modules/.bin/eslint src && ./node_modules/.bin/flow && ./node_modules/.bin/jest"
+    "test": "./node_modules/.bin/eslint src && ./node_modules/.bin/flow && ./node_modules/.bin/jest",
+    "build:cli-tools": "./node_modules/.bin/babel src --ignore src/server --out-dir command-line-dist --copy-files"
   },
   "dependencies": {
     "adbkit": "2.6.1",

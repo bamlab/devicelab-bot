@@ -44,3 +44,25 @@ This will return a `build id`, that you can use to retrieve logs by calling `/bu
 
 - A [Fastlane plugin](https://github.com/bamlab/fastlane-plugin-devicelab_bot)
 - A [python client](./client.py)
+
+## Using the CLI
+
+```
+npm i -g devicelab-bot
+HOCKEY_API_TOKEN==<token> devicelab-bot install <appName>
+HOCKEY_API_TOKEN==<token> devicelab-bot --help
+```
+
+## Development
+
+### Testing
+
+```
+yarn test
+```
+
+### Building the CLI tools
+
+```
+yarn build:cli-tools
+```
