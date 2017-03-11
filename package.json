@@ -16,6 +16,7 @@
     "start": "babel-node src/server",
     "test": "./node_modules/.bin/eslint src && ./node_modules/.bin/flow && ./node_modules/.bin/jest",
     "build:cli-tools": "./node_modules/.bin/babel src --ignore src/server --out-dir command-line-dist --copy-files",
+    "commitmsg": "validate-commit-msg",
     "commit": "git-cz",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
@@ -44,8 +45,10 @@
     "eslint-plugin-flowtype": "2.25.0",
     "eslint-plugin-import": "1.16.0",
     "flow-bin": "0.35.0",
+    "husky": "^0.13.2",
     "jest": "^19.0.2",
-    "semantic-release": "^6.3.2"
+    "semantic-release": "^6.3.2",
+    "validate-commit-msg": "^2.11.2"
   },
   "config": {
     "commitizen": {
