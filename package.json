@@ -29,6 +29,7 @@
     "express": "4.14.0",
     "lodash": "^4.17.4",
     "lru-cache": "^4.0.2",
+    "multi-progress": "^2.0.0",
     "node-fetch": "1.6.0",
     "node-uuid": "1.4.7",
     "shelljs": "0.7.5",

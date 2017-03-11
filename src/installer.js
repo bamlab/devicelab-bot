@@ -1,11 +1,11 @@
 // @flow
 
 import 'babel-polyfill';
+import fs from 'fs';
 import { addBuildLog } from './buildLogs';
 import { androidClient, iosClient } from './device-clients';
+import download from './download';
 
-const fs = require('fs');
-const download = require('download');
 const hockeyAppClient = require('./hockeyapp-client');
 
 const BUILD_FOLDER = 'build';
@@ -21,12 +21,7 @@ const downloadBuild = (buildUrl: string, appName: string, isAndroid: boolean): P
   const fileName = isAndroid ? 'app.apk' : 'app.ipa';
   const filePath = `${buildFolder}/${fileName}`;
 
-  return download(buildUrl)
-  .then((fileData) => {
-    fs.writeFileSync(filePath, fileData);
-
-    return filePath;
-  });
+  return download(buildUrl, filePath);
 };
 
 const installAppOnDevice = async (buildId: string, appName: string, buildFilePath: string,
