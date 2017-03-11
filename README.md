@@ -23,7 +23,7 @@ An API documentation is available at [http://localhost:3000/docs](http://localho
 HOCKEY_API_TOKEN==<token> pm2 start src/server --interpreter ./node_modules/.bin/babel-node
 ```
 
-## Serving the bot to others
+### Serving the bot with Ngrok
 
 [Ngrok](https://ngrok.com/) is packaged with this.
 
