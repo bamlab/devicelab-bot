@@ -55,6 +55,12 @@ HOCKEY_API_TOKEN==<token> devicelab-bot --help
 
 ## Development
 
+### Commiting with Commitizen
+
+```
+yarn commit
+```
+
 ### Testing
 
 ```
