@@ -5,11 +5,6 @@ import { red } from 'chalk';
 
 const HOCKEY_API_TOKEN = process.env.HOCKEY_API_TOKEN;
 
-if (!HOCKEY_API_TOKEN) {
-  console.log(red('Please specify environment variable HOCKEY_API_TOKEN.'));
-  process.exit(1);
-}
-
 function checkStatus(response: Object): Object {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -20,8 +15,13 @@ function checkStatus(response: Object): Object {
 
 const parseJson = response => response.json();
 
-const query = (url: string, method: string = 'GET') =>
-  fetch(`https://rink.hockeyapp.net/api/2${url}`, {
+const query = (url: string, method: string = 'GET') => {
+  if (!HOCKEY_API_TOKEN) {
+    console.log(red('Please specify environment variable HOCKEY_API_TOKEN.'));
+    process.exit(1);
+  }
+
+  return fetch(`https://rink.hockeyapp.net/api/2${url}`, {
     method,
     headers: {
       'X-HockeyAppToken': HOCKEY_API_TOKEN,
@@ -31,6 +31,7 @@ const query = (url: string, method: string = 'GET') =>
   .catch((error) => {
     console.log('request failed', error);
   });
+};
 
 const getAppVersionInfo = async (hockeyAppId: string): Promise<HockeyappVersionType> =>
   query(`/apps/${hockeyAppId}/app_versions?include_build_urls=true`)

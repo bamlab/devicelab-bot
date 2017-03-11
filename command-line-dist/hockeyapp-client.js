@@ -5,11 +5,6 @@ var _chalk=require('chalk');function _interopRequireDefault(obj){return obj&&obj
 
 var HOCKEY_API_TOKEN=process.env.HOCKEY_API_TOKEN;
 
-if(!HOCKEY_API_TOKEN){
-console.log((0,_chalk.red)('Please specify environment variable HOCKEY_API_TOKEN.'));
-process.exit(1);
-}
-
 function checkStatus(response){
 if(response.status>=200&&response.status<300){
 return response;
@@ -20,8 +15,13 @@ throw response;
 
 var parseJson=function parseJson(response){return response.json();};
 
-var query=function query(url){var method=arguments.length>1&&arguments[1]!==undefined?arguments[1]:'GET';return(
-(0,_nodeFetch2.default)('https://rink.hockeyapp.net/api/2'+url,{
+var query=function query(url){var method=arguments.length>1&&arguments[1]!==undefined?arguments[1]:'GET';
+if(!HOCKEY_API_TOKEN){
+console.log((0,_chalk.red)('Please specify environment variable HOCKEY_API_TOKEN.'));
+process.exit(1);
+}
+
+return(0,_nodeFetch2.default)('https://rink.hockeyapp.net/api/2'+url,{
 method:method,
 headers:{
 'X-HockeyAppToken':HOCKEY_API_TOKEN}}).
@@ -30,7 +30,8 @@ headers:{
 then(checkStatus).
 catch(function(error){
 console.log('request failed',error);
-}));};
+});
+};
 
 var getAppVersionInfo=function getAppVersionInfo(hockeyAppId){return regeneratorRuntime.async(function getAppVersionInfo$(_context){while(1){switch(_context.prev=_context.next){case 0:return _context.abrupt('return',
 query('/apps/'+hockeyAppId+'/app_versions?include_build_urls=true').
