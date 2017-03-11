@@ -10,7 +10,8 @@ import { androidClient, iosClient } from '../device-clients';
 program
 .command('install <hockeyAppName>')
 .description('Install Hockey app on connected devices')
-.action(hockeyAppName => installer.installAppByName('', hockeyAppName));
+.option('-u, --uninstall', 'Uninstall app before reinstalling')
+.action((hockeyAppName, options) => installer.installAppByName('', hockeyAppName, !!options.uninstall));
 
 const displayDevices = (deviceClient: DeviceClientType, colorize: (text: string) => string) =>
   deviceClient.getDevices()
