@@ -1,6 +1,6 @@
 {
   "name": "devicelab-bot",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "",
   "main": "index.js",
   "author": "Almouro <contact@almouro.com> (almouro.com)",
@@ -15,7 +15,10 @@
   "scripts": {
     "start": "babel-node src/server",
     "test": "./node_modules/.bin/eslint src && ./node_modules/.bin/flow && ./node_modules/.bin/jest",
-    "build:cli-tools": "./node_modules/.bin/babel src --ignore src/server --out-dir command-line-dist --copy-files"
+    "build:cli-tools": "./node_modules/.bin/babel src --ignore src/server --out-dir command-line-dist --copy-files",
+    "commitmsg": "validate-commit-msg",
+    "commit": "git-cz",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "dependencies": {
     "adbkit": "2.6.1",
@@ -35,11 +38,21 @@
     "babel-cli": "6.14.0",
     "babel-eslint": "7.1.1",
     "babel-preset-react-native": "1.9.0",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.0.0",
     "eslint": "3.8.0",
     "eslint-config-airbnb-base": "8.0.0",
     "eslint-plugin-flowtype": "2.25.0",
     "eslint-plugin-import": "1.16.0",
     "flow-bin": "0.35.0",
-    "jest": "^19.0.2"
+    "husky": "^0.13.2",
+    "jest": "^19.0.2",
+    "semantic-release": "^6.3.2",
+    "validate-commit-msg": "^2.11.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
