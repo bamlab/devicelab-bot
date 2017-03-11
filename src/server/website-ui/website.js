@@ -55,6 +55,13 @@
     });
   };
 
+  const makeHockeyappNameInputAutocomplete = () => {
+    $.get('/app-names', (appNames) => {
+      $('#hockeyAppName').autocomplete({ source: appNames });
+    });
+  };
+
   $('#install-button').click(installApp);
   setHockeyAppNameValueFromPath();
+  makeHockeyappNameInputAutocomplete();
 })($, window);

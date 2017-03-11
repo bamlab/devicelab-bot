@@ -11,6 +11,7 @@ import type {
   $Request as RequestType,
   $Response as ResponseType,
 } from 'express';
+import { sortBy, uniq } from 'lodash';
 
 import { createBuildLog, getBuildLogs } from '../buildLogs';
 import installer from '../installer';
@@ -71,6 +72,16 @@ export default (app: ApplicationType) => {
    *      nickname: Get Apps
    */
   app.get('/apps', (request: RequestType, response: ResponseType) => hockeyAppClient.getApps().then(apps => response.json(apps)));
+
+  /**
+   * @swagger
+   * path: /app-names
+   * operations:
+   *   -  httpMethod: GET
+   *      summary: Get app names available for Download
+   *      nickname: Get App Namess
+   */
+  app.get('/app-names', (request: RequestType, response: ResponseType) => hockeyAppClient.getApps().then(apps => response.json(sortBy(uniq(apps.map(appInfo => appInfo.title))))));
 
   /**
    * @swagger
