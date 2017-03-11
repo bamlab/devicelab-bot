@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "devicelab-bot",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -9,15 +9,21 @@
     "type": "git",
     "url": "https://github.com/almouro/hockeyapp-remover"
   },
+  "bin": {
+    "devicelab-bot": "./cli.js"
+  },
   "scripts": {
     "start": "babel-node src/server",
-    "test": "./node_modules/.bin/eslint src && ./node_modules/.bin/flow && ./node_modules/.bin/jest"
+    "test": "./node_modules/.bin/eslint src && ./node_modules/.bin/flow && ./node_modules/.bin/jest",
+    "build:cli-tools": "./node_modules/.bin/babel src --ignore src/server --out-dir command-line-dist --copy-files"
   },
   "dependencies": {
     "adbkit": "2.6.1",
     "babel-cli": "6.14.0",
     "babel-polyfill": "6.16.0",
     "babel-preset-react-native": "1.9.0",
+    "chalk": "^1.1.3",
+    "commander": "^2.9.0",
     "download": "5.0.2",
     "express": "4.14.0",
     "lodash": "^4.17.4",
@@ -25,8 +31,7 @@
     "node-fetch": "1.6.0",
     "node-uuid": "1.4.7",
     "shelljs": "0.7.5",
-    "swagger-express": "^1.0.5",
-    "yargs": "5.0.0"
+    "swagger-express": "^1.0.5"
   },
   "devDependencies": {
     "babel-eslint": "7.1.1",
