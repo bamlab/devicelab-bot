@@ -1,9 +1,14 @@
 // @flow
 
-const args = require('yargs')
-  .demand(['token'])
-  .argv;
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
+import { red } from 'chalk';
+
+const HOCKEY_API_TOKEN = process.env.HOCKEY_API_TOKEN;
+
+if (!HOCKEY_API_TOKEN) {
+  console.log(red('Please specify environment variable HOCKEY_API_TOKEN.'));
+  process.exit(1);
+}
 
 function checkStatus(response: Object): Object {
   if (response.status >= 200 && response.status < 300) {
@@ -19,7 +24,7 @@ const query = (url: string, method: string = 'GET') =>
   fetch(`https://rink.hockeyapp.net/api/2${url}`, {
     method,
     headers: {
-      'X-HockeyAppToken': args.token,
+      'X-HockeyAppToken': HOCKEY_API_TOKEN,
     },
   })
   .then(checkStatus)

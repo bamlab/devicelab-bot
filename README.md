@@ -10,7 +10,7 @@
 
 Start your node server
 ```
-npm start -- --token <HockeyApp token>
+HOCKEY_API_TOKEN==<token> npm start
 ```
 
 You can now install your apps to your devicelab from [http://localhost:3000](http://localhost:3000).
@@ -20,7 +20,7 @@ An API documentation is available at [http://localhost:3000/docs](http://localho
 ### Using PM2
 
 ```
-pm2 start src/server --interpreter ./node_modules/.bin/babel-node -x -- --token <HockeyApp token>
+HOCKEY_API_TOKEN==<token> pm2 start src/server --interpreter ./node_modules/.bin/babel-node
 ```
 
 ## Serving the bot to others
